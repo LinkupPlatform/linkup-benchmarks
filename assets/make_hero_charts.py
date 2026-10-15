@@ -58,13 +58,15 @@ _WLOGO = None
 
 def _nice_bounds(vals):
     lo, hi = min(vals), max(vals)
+    if hi <= 10:
+        return 0, 10, 2
     step = 10 if (hi - lo) > 35 else 5
     dmin = max(0, math.floor((lo - step * 0.6) / step) * step)
     dmax = math.ceil((hi + step * 0.4) / step) * step
     return dmin, dmax, step
 
 
-def panel(ax, title, subtitle, data, suffix="", decimals=0):
+def panel(ax, title, subtitle, data, suffix="", decimals=0, date=None):
     global _WLOGO
     labels = [d[0] for d in data]
     vals = [d[1] for d in data]
@@ -120,7 +122,7 @@ def panel(ax, title, subtitle, data, suffix="", decimals=0):
     cap_y = dmin - band * (0.90 if multiline else 0.82)
     ax.text(-0.66, cap_y, subtitle, ha="left", va="center",
             family="monospace", fontsize=8.5, color=MUTED, zorder=5)
-    ax.text(n - 0.34, cap_y, DATE, ha="right", va="center",
+    ax.text(n - 0.34, cap_y, date or DATE, ha="right", va="center",
             family="monospace", fontsize=8.5, color=MUTED, zorder=5)
 
     # frame
@@ -135,7 +137,7 @@ def panel(ax, title, subtitle, data, suffix="", decimals=0):
     ax.set_facecolor(BG)
 
 
-def hero(fname, header, panels):
+def hero(fname, header, panels, date=None):
     n = len(panels)
     fig, axes = plt.subplots(n, 1, figsize=(8.0, 3.25 * n + 0.7))
     fig.patch.set_facecolor("white")
@@ -144,7 +146,7 @@ def hero(fname, header, panels):
     fig.text(0.02, 0.995, header, fontsize=15, fontweight="bold",
              color=GREEN_INK, ha="left", va="top")
     for ax, p in zip(axes, panels):
-        panel(ax, **p)
+        panel(ax, date=date, **p)
     fig.subplots_adjust(top=1 - 0.9 / (3.25 * n + 0.7),
                         left=0.055, right=0.975, bottom=0.02, hspace=0.42)
     path = os.path.join(OUT, fname)
@@ -202,6 +204,22 @@ hero(
                    ("Tavily", 36.9), ("Exa", 26.2)],
              suffix="%", decimals=1),
     ],
+)
+
+hero(
+    "places_hero.png",
+    "General consumer & places  ·  Linkup leads both",
+    [
+        dict(title="Places",
+             subtitle="Specific physical site / score 0\u201310 / n=112",
+             data=[("Linkup", 8.3), ("Perplexity", 5.7), ("Exa", 5.0)],
+             decimals=1),
+        dict(title="General consumer",
+             subtitle="Everything else / score 0\u201310 / n=88",
+             data=[("Linkup", 8.5), ("Perplexity", 5.5), ("Exa", 5.4)],
+             decimals=1),
+    ],
+    date="2026-10",
 )
 
 hero(

@@ -5,7 +5,7 @@ web-search API performs on the retrieval jobs behind real GTM and legal work.
 Every number below links to a repo that ships its dataset, queries, scoring code,
 and results, so it can be re-run and re-checked.
 
-**Repos:** [Search Benchmarks on GTM Use-cases](https://github.com/LinkupPlatform/Search-Benchmarks-on-GTM-Usecases) · [Finance — FinSearchComp](https://github.com/LinkupPlatform/linkup-finance-benchmark) · [RedlineBench × Linkup (legal)](https://github.com/LinkupPlatform/linkup-search-redline-bench)
+**Repos:** [Search Benchmarks on GTM Use-cases](https://github.com/LinkupPlatform/Search-Benchmarks-on-GTM-Usecases) · [Finance — FinSearchComp](https://github.com/LinkupPlatform/linkup-finance-benchmark) · [RedlineBench × Linkup (legal)](https://github.com/LinkupPlatform/linkup-search-redline-bench) · [General consumer & places](https://github.com/LinkupPlatform/general-consumer-and-places-benchmark)
 
 ---
 
@@ -114,6 +114,23 @@ baseline and every other model on the board.
 
 
 
+## General consumer & places
+
+Linkup fast vs Perplexity Search vs Exa fast. Overall is the average of three
+blind grades, 0–10. Full set, queries, and scoring:
+[general-consumer-and-places-benchmark](https://github.com/LinkupPlatform/general-consumer-and-places-benchmark).
+
+![Linkup leads places and general consumer](assets/places_hero.png)
+
+| Set                  | What it measures                 | Linkup  | Perplexity | Exa |
+| -------------------- | -------------------------------- | ------- | ---------- | --- |
+| **Places**           | A specific physical site (n=112) | **8.3** | 5.7        | 5.0 |
+| **General consumer** | Everything else (n=88)           | **8.5** | 5.5        | 5.4 |
+
+---
+
+
+
 ## Methodology
 
 Shared principles across every bench:
@@ -140,11 +157,12 @@ Full method, caveats, and reproduction steps live in each source repo.
 linkup-benchmarks/
 ├── README.md                     # this file — the consolidated view
 └── assets/
-    ├── make_hero_charts.py       # regenerates all four composites
+    ├── make_hero_charts.py       # regenerates the composites
     ├── people_hero.png           # 3 people signals in one image
     ├── company_hero.png          # 2 company signals in one image
     ├── finance_hero.png          # FinSearchComp T2 + T3 tiers
-    └── legal_hero.png            # RedlineBench leaderboard
+    ├── legal_hero.png            # RedlineBench leaderboard
+    └── places_hero.png           # places + general consumer
 ```
 
 Regenerate the charts: `pip install -r assets/requirements.txt && python3 assets/make_hero_charts.py`
